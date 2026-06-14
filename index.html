@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Dynamic Prompt Builder</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#667eea,#764ba2);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.container{
+width:750px;
+background:white;
+padding:35px;
+border-radius:20px;
+box-shadow:0 15px 40px rgba(0,0,0,0.2);
+}
+
+h1{
+text-align:center;
+margin-bottom:10px;
+color:#333;
+}
+
+.subtitle{
+text-align:center;
+color:gray;
+margin-bottom:25px;
+}
+
+label{
+font-weight:bold;
+display:block;
+margin-bottom:8px;
+color:#444;
+}
+
+input,
+textarea{
+width:100%;
+padding:12px;
+margin-bottom:20px;
+border:2px solid #ddd;
+border-radius:10px;
+font-size:16px;
+}
+
+input:focus,
+textarea:focus{
+outline:none;
+border-color:#667eea;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:#667eea;
+color:white;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#5a67d8;
+}
+
+#result{
+margin-top:25px;
+padding:20px;
+background:#f4f7ff;
+border-left:5px solid #667eea;
+border-radius:10px;
+white-space:pre-wrap;
+min-height:120px;
+}
+
+.result-title{
+font-size:18px;
+font-weight:bold;
+color:#667eea;
+margin-bottom:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🚀 Dynamic Prompt Builder</h1>
+
+<p class="subtitle">
+Transform Project Information into AI-Ready Prompts
+</p>
+
+<label>📌 Project Name</label>
+
+<input
+type="text"
+id="project"
+placeholder="AI Resume Builder">
+
+<label>🛠 Skills Used</label>
+
+<textarea
+id="skills"
+rows="5"
+placeholder="Python, FastAPI"></textarea>
+
+<button onclick="generatePrompt()">
+Generate Prompt
+</button>
+
+<div id="result">
+
+<div class="result-title">
+🤖 Generated Prompt
+</div>
+
+Prompt will appear here...
+
+</div>
+
+</div>
+
+<script>
+
+async function generatePrompt(){
+
+const project =
+document.getElementById("project").value;
+
+const skills =
+document.getElementById("skills").value;
+
+const response = await fetch(
+"http://127.0.0.1:8000/build-prompt",
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+project:project,
+skills:skills
+})
+}
+);
+
+const data = await response.json();
+
+document.getElementById("result").innerHTML =
+`
+<div class="result-title">
+🤖 Generated Prompt
+</div>
+
+${data.prompt}
+`;
+}
+
+</script>
+
+</body>
+</html>
