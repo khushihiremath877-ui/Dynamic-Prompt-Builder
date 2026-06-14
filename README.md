@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Dynamic Prompt Builder
 
 ## Overview
@@ -165,3 +166,6 @@ http://127.0.0.1:8000
 ## Author
 
 Khushi Hiremath
+=======
+# Dynamic-Prompt-Builder
+>>>>>>> 0d68f14854c28de7a23b87a4f471b8513e7cdc3b
